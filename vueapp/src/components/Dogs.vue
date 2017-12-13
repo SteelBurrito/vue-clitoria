@@ -1,35 +1,50 @@
 <template>
-<div class="dropdown is-active">
-  <div class="dropdown-trigger">
-    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu2">
-      <span>Content</span>
-      <span class="icon is-small">
-        <i class="fa fa-angle-down" aria-hidden="true"></i>
-      </span>
-    </button>
-  </div>
-  <div class="dropdown-menu" id="dropdown-menu2" role="menu">
-    <div class="dropdown-content">
-      <div class="dropdown-item">
-        <p>You can insert <strong>any type of content</strong> within the dropdown menu.</p>
-      </div>
-      <hr class="dropdown-divider">
-      <div class="dropdown-item">
-        <p>You simply need to use a <code>&lt;div&gt;</code> instead.</p>
-      </div>
-      <hr class="dropdown-divider">
-      <a href="#" class="dropdown-item">
-        This is a link
-      </a>
+    <div class="container">
+        <h1 class="has-text-centered has-text-weight-bold is-size-1">LET THE DOGS OUT</h1>
+        <hr />
+        <div class="content">
+            <select v-model="selected" @change="dogSelect">
+                <option disabled value="">Please select one</option>
+                <option v-if='dogs.length === 0' disabled>No dogs let out :( </option>
+                <option v-for="(dog, key, index) in dogs" :value="key">{{ key }}</option> 
+            </select>
+             <div><img :src="dogImg" /></div>
+        </div>
     </div>
-  </div>
-</div>
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        data() {
+            return{
+                dogs: [],
+                dogsComplete: [],
+                selected: '',
+                dogImg: '',
+            };
+        },
+
+        created() {
+            var vm = this;
+            vm.fetchDogs();
+        },
+
+        methods: {
+            fetchDogs(){
+                axios.get('https://dog.ceo/api/breeds/list/all')
+                    .then ((res) => {
+                        this.dogs = res.data.message;
+                        
+                    })
+            },
+            dogSelect(e) {
+                var e = "https://dog.ceo/api/breed/" + this.selected + "/images/random";
+                axios.get(e)
+                    .then ((res) => {
+                        this.dogImg = res.data.message;
+                    })
+            }
         }
     }
 </script>

@@ -6,7 +6,7 @@
         <router-link to="/" exact>Home</router-link>
       </div>
       <div class="navbar-item">
-        <router-link to="/Dogs">About</router-link>
+        <router-link to="/Dogs">Doggo</router-link>
       </div>
     </nav>
     <br/>

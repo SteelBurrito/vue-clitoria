@@ -16,14 +16,14 @@
 </template>
 
 <script>
-export default {
-  name: 'hello',
-  data () {
-    return {
-      msg: 'Welcome',
-      input_val: '',
-      counter: 0
+  export default {
+    name: 'hello',
+    data () {
+      return {
+        msg: 'Welcome',
+        input_val: '',
+        counter: 0
+      }
     }
   }
-}
 </script>
