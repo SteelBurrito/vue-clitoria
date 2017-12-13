@@ -8,6 +8,9 @@
       <div class="navbar-item">
         <router-link to="/Dogs">Doggo</router-link>
       </div>
+      <div class="navbar-item">
+        <router-link to="/Spotify">Spotifyer</router-link>
+      </div>
     </nav>
     <br/>
     <transition name="fade">

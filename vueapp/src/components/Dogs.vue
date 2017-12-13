@@ -8,7 +8,8 @@
                 <option v-if='dogs.length === 0' disabled>No dogs let out :( </option>
                 <option v-for="(dog, key, index) in dogs" :value="key">{{ key }}</option> 
             </select>
-             <div><img :src="dogImg" /></div>
+             <div v-if="dogImg === ''"><img src="/src/assets/dogLoading.gif"></div>
+             <div v-else><img :src="dogImg" /></div>
         </div>
     </div>
 </template>
@@ -35,14 +36,18 @@
                 axios.get('https://dog.ceo/api/breeds/list/all')
                     .then ((res) => {
                         this.dogs = res.data.message;
-                        
                     })
             },
             dogSelect(e) {
                 var e = "https://dog.ceo/api/breed/" + this.selected + "/images/random";
                 axios.get(e)
                     .then ((res) => {
-                        this.dogImg = res.data.message;
+                        if (res.statusText === 'OK'){
+                            this.dogImg = res.data.message;
+                        }
+                        else {
+                            this.dogImg = "/src/assets/dogLoading.gif";
+                        }
                     })
             }
         }
