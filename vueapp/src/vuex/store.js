@@ -38,6 +38,7 @@ const getters = {
     //         }
     //     })
     // }
+    
 }
 
 // create the Vuex instance by combining the state and mutations objects
