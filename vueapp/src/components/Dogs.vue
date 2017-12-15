@@ -9,7 +9,7 @@
                 <option v-for="(dog, key, index) in dogs" :value="key">{{ key }}</option> 
             </select>
              <div v-if="dogImg === ''"><img src="/src/assets/dogLoading.gif"></div>
-             <div v-else><img :src="dogImg" /></div>
+             <div><img :src="dogImg" /></div>
         </div>
     </div>
 </template>
