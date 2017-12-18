@@ -8,9 +8,9 @@
       <div class="navbar-item">
         <router-link to="/Dogs">Doggo</router-link>
       </div>
-      <!-- <div class="navbar-item">
-        <router-link to="/MarvelDB">Marvel Database</router-link>
-      </div> -->
+      <div class="navbar-item">
+        <router-link to="/Crypto">Cryptocurrency Exchange Rate</router-link>
+      </div>
     </nav>
     <br/>
     <transition name="fade">

@@ -18,7 +18,7 @@ const mutations = {
         state.data = tickers
     },
     RECEIVE_CURRENCIES(state, { currencies }){
-        state.currency = require('./assets/currency.json')
+        state.currency = currencies
     }
 }
 
@@ -26,9 +26,14 @@ const mutations = {
 //Instead of mutating the store’s state directly, actions commit mutations, which then updates the state
 const actions = {
     async FETCH_TICKERS({ commit }, base, target){
-        const url = 'https://api.cryptonator.com/api/full/{base}-{target}'
+        const url = 'https://api.cryptonator.com/api/full/{baseInput}-{target}'
         const { data } = await axios.get(url)
         commit('RECEIVE_TICKERS', { tickers: ticker })
+    },
+    async FETCH_CURRENCY({ commit }){
+        const curr = require('./currency.json')
+        const { currency } = axios.get(curr)
+        commit('RECEIVE_CURRENCIES', {currencies: code})
     }
 }
 
@@ -37,6 +42,7 @@ const getters = {
     tickers: state=>{
         return state.data.map(data=> {
             return{
+                //API JSON Return
                 error: data.error,
                 base: data.base,
                 target: data.target,
@@ -44,7 +50,11 @@ const getters = {
                 volume: data.volume,
                 change: data.change,
                 markets: data.markets,
-                timestamp: data.timestamp
+                timestamp: data.timestamp,
+
+                //Currency and Cryptocurrency input used to get API result
+                baseInput: crypto,
+                target: currency
             }
         })
     }
@@ -52,7 +62,7 @@ const getters = {
 
 // create the Vuex instance by combining the state and mutations objects
 // then export the Vuex store for use by our components
-export default new Vuex.Store({
+const store = new Vuex.Store({
     state,
     mutations,
     actions,
