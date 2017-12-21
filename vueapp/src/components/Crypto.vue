@@ -5,7 +5,8 @@
       <div class="content">
           <select v-model="currInput">
             <option disabled value="">Please select one</option>
-            <option v-for="currency in currencies" :key="currency"></option>
+            <option v-if='currency.length === 0' disabled>No money no honey :(</option>
+            
           </select>
       </div>    
   </div>
@@ -13,35 +14,36 @@
 
 <script>
 import { mapGetters } from 'vuex'
+
 export default {
     data() {
         return {
             currInput: '',
-            currencies: [],
-            cryptos: []
+            currency: [],
+            index: this.$store.state.arr,
         };
     },
+        // currInput:{
+        //     get () {
+        //         return this.$store.state.baseInput.currInput;
+        //     },
+        //     set (value) {
+        //         this.$store.commit('UPDATE_CURR_INPUT', currInput);
+        //     }
+        // },
 
-    computed: 
-        mapGetters([
-            'tickers'
-        ]),
-
-        currInput:{
-            get () {
-                return this.$store.state.baseInput.currInput;
-            },
-            set (value) {
-                this.$store.commit('UPDATE_CURR_INPUT', currInput);
-            }
-        },
+    created(){
+        var vm = this;
+        vm.fetchCurrency();
+    },
     
     methods: {
         tesStore() {
             this.$store.commit("getHello");
         },
         fetchCurrency(){
-            this.currencies = $store.getters.currencies;
+            this.currency = this.$store.dispatch("fetch_currencies");
+            // console.log(this.currencies);
         },
         fetchCryptos(){
             this.cryptos = $store.getters.cryptos;
