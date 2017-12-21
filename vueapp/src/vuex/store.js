@@ -31,15 +31,13 @@ const actions = {
         await axios.get(url).then((res)=>{
             commit('RECEIVE_CURRENCIES', currencies = res.data.rows )
         })
-        // commit('RECEIVE_CURRENCIES', { currencies: currency.rows })
     }
     
 }
 
 //Getters are helper functions that retrieve data from our state.
 const getters = {
-    getCurrencyName: state => state.currency.rows[0].name,
-    getCurrencyCode: state => state.currency.rows[0].code
+    getCurrencyName: state => state.currency.name
 }
 
 // create the Vuex instance by combining the state and mutations objects
